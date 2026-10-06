@@ -1,0 +1,4 @@
+[paths]
+obsidian_vault = "~/Documents/Obsidian/vault/content/" # Change this for your path
+hugo_content_dir = "~/Documents/hugo/content" # Change this to your hugo content directory
+attachments_dir = "~/Documents/Obsidian/vault/attachments" # Change this to your obsidian attachments directory
