@@ -1,5 +1,19 @@
-# obshug
-Obsidian to Gohugo script to move and modify md files from ObsidianMD directory to Hugo directory.
+# ObsHug
+
+Obsidian to Gohugo script to move and modify .md files from ObsidianMD directory to Hugo directory.
+
+- Tested on mac
+- Using Hextra Hugo Theme https://imfing.github.io/hextra/
+
+
+Gohugo
+
+https://gohugo.io/
+
+ObsidianMD
+
+https://obsidian.md/
+
 
 ## Flow
 
@@ -23,6 +37,6 @@ Write content in ObsidianMD --> run obsgug.py --> files moved to hugo content di
 ```
 
 > [!CAUTION]
-> Skript is replaicing files in moving operation. Make sure you know what you do!!
+> Script is replaicing files in moving operation. Make sure you know what you do!!
 
 
