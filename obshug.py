@@ -158,13 +158,41 @@ class ObsidianToHugoSync:
             else:
                 link_no_ext = link_with_ext
 
-            # Example Hugo URL correction for about page:
-            # Obsidian: /content/about/index.fi(.md) Chnge if you have different languages like fr
-            # Hugo URL: /about/
-            if "content/about/" in link_no_ext and link_no_ext.endswith("index.fi"):
-                href = "/about/"
-            elif "content/about/" in link_no_ext and link_no_ext.endswith("index.en"):
-                href = "/about/"
+            # Hugo URL correction (generic, no hard-coded section names):
+            # 1) content/<section>/index.<lang>         -> /<section>/
+            # 2) content/<section>/<entry>/index.<lang> -> /<section>/<entry>/
+            if "content/" in link_no_ext:
+                parts = link_no_ext.split("/")
+                try:
+                    content_idx = parts.index("content")
+                    last = parts[-1]
+
+                    # Case 1: generic section index: content/<section>/index.xx
+                    # e.g. Projects/website/content/about/index.en -> /about/
+                    if (
+                        last.startswith("index.")
+                        and len(parts)
+                        == content_idx + 3  # ["content", "<section>", "index.xx"]
+                    ):
+                        section = parts[content_idx + 1]
+                        href = f"/{section}/"
+
+                    # Case 2: section entry index: content/<section>/<entry>/index.xx
+                    # e.g. .../content/docs/dock1/index.en -> /docs/dock1/
+                    elif (
+                        last.startswith("index.")
+                        and len(parts)
+                        > content_idx + 3  # has at least one entry after section
+                    ):
+                        section = parts[content_idx + 1]
+                        entry = parts[content_idx + 2]
+                        href = f"/{section}/{entry}/"
+
+                    else:
+                        href = link_no_ext
+                except ValueError:
+                    # "content" not found, fallback
+                    href = link_no_ext
             else:
                 href = link_no_ext
 
